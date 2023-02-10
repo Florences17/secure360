@@ -1,0 +1,50 @@
+﻿<div class="d-flex justify-content-between">
+    <span class="table-data-link" @onclick=@LinkClicked>@LinkName</span>
+    @if(ModuleExpand == false)
+    {
+        <span style="margin-right:5px" @onclick="ToggleModuleExpand"><i class="fas fa-chevron-right" style="cursor:pointer;"></i></span>
+    }
+    else
+    {
+        <span style="margin-right:5px" @onclick="ToggleModuleExpand"><i class="fas fa-chevron-down" style="cursor:pointer;"></i></span>
+    }
+</div>
+
+@code{
+
+    [Parameter]
+    public string LinkName { get; set; }
+
+    public bool ModuleExpand { get; set; } = false;
+
+    [Parameter]
+    public EventCallback onLinkClicked { get; set; }
+
+    protected async Task LinkClicked()
+    {
+        await onLinkClicked.InvokeAsync();
+    }
+
+    public async void ToggleModuleExpand ()
+    {
+        if(ModuleExpand == false)
+        {
+            ModuleExpand = true;
+            StatusChanged();
+        }
+        else
+        {
+            ModuleExpand = false;
+            StatusChanged();
+        }
+    }
+
+    [Parameter]
+    public EventCallback<bool> onStatusChanged { get; set; }
+
+    protected async Task StatusChanged()
+    { 
+        await onStatusChanged.InvokeAsync(ModuleExpand);
+    }
+
+}

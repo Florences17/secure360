@@ -1,0 +1,25 @@
+<link href="css/CardLayoutText.css" rel="stylesheet" type="text/css" />
+
+<div class="item-card-text d-flex justify-content-center align-items-center mb-3" style="width: @Width; height: @Height;" @onclick=@MenuButtonClicked>
+    <span class="item-card-text-content">@Text</span>
+</div>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string Text {get; set;}
+
+    [Parameter]
+    public EventCallback onMenuButtonClicked { get; set; }
+
+    protected async Task MenuButtonClicked()
+    {
+        await onMenuButtonClicked.InvokeAsync();
+    }
+
+}

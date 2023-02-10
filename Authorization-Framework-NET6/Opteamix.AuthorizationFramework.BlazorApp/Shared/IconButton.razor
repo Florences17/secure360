@@ -1,0 +1,25 @@
+<link href="css/IconButton.css" rel="stylesheet" type="text/css" />
+
+<button class="icon-button justify-content-end" style="width: @Width; height: @Height;" @onclick=@IconButtonClicked>@Text <i class="@IconName icon-button-item"></i></button>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string IconName {get; set;}
+
+    [Parameter]
+    public string Text {get; set;}
+
+    [Parameter]
+    public EventCallback onIconButtonClicked { get; set; }
+
+    protected async Task IconButtonClicked()
+    {
+        await onIconButtonClicked.InvokeAsync();
+    }
+}

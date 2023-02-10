@@ -1,0 +1,14 @@
+.delete-button{
+    background-color: transparent;
+    color: #BB0000;
+    border: 0.5px solid #BB0000;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+.delete-button:hover{
+    background-color: #BB0000;
+    color: #E4E4E4;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}

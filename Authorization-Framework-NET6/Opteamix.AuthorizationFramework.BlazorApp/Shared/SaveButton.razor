@@ -1,0 +1,23 @@
+@inject NavigationManager UriHelper
+<link href="css/SaveButton.css" rel="stylesheet" type="text/css" />
+
+<button class="save-button" style="width: @Width; height: @Height;" @onclick=@SaveButtonClicked>Save</button>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string URL {get;set;}
+
+    [Parameter]
+    public EventCallback onSaveButtonClicked { get; set; }
+
+    protected async Task SaveButtonClicked()
+    {
+        await onSaveButtonClicked.InvokeAsync();
+    }
+}

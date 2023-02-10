@@ -1,0 +1,62 @@
+@page "/privileges"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Privilege
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    <MenuItems SelectedApplication="commonService.SelectedApplication.ApplicationId"/>
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex align-item-center mb-4">
+            <div class="col d-flex align-items-center justify-content-betweem ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Image_Width="251px" Image_Height="59px" Hover= "false"/>
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px; margin-left: 130px;">Application</label>                       
+                <CardLayoutImage Width="200px" Height="100px" Image="@commonService.SelectedApplication.ImagePath" Image_Width="251px" Image_Height="59px" Hover= "false"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="625px" ClassName="pt-2">
+            <div class="d-flex justify-content-between mx-5 py-3 align-items-center" style="height: 70px;">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Privilege</label>                       
+                <SearchLayout Width="400px" Height="40px" @bind-Input="SearchValue" onSearchButtonClicked="SearchButtonClicked" onSearchCleared="SearchCleared"/>
+                <div class="col-4 d-flex justify-content-between"> 
+                    <IconButton Width="170px" Height="36px" IconName="fa fa-plus" Text="Create new" onIconButtonClicked="(()=>IconButtonClick(Constants.AddPrivilege, Constants.Add))"/>
+                    <IconButton Width="118px" Height="36px" IconName="fa fa-trash" Text="Delete" onIconButtonClicked="(()=>IconButtonClick(Constants.Privileges, Constants.Delete))"/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:100px; padding-top: 2%;">
+                @if (privilege_state == LoadingContainerState.Loading)
+                {
+                    <img src="/gif/loading.gif" width="100px" height="100px"/>
+                }
+                else if (privilege_state == LoadingContainerState.Loaded)
+                {
+                    if (DisplayPrivileges.Count() > 0)
+                    {
+                        <table> 
+                             <tr>
+                                <th style="width:40px;"><input type="checkbox" class="checkbox-round" /></th>
+                                <th style="width:400px;">Privilege Name</th>
+                                <th style="width:240px;">Description</th>
+                              
+                             </tr>
+                             @foreach(var item in DisplayPrivileges)
+                             {
+                                <tr>
+                                    <td style="width:40px;"><input type="checkbox" class="checkbox-round" value="@item.PrivilegeId" @onchange="eventArgs => { PrivilegeSelected(item.PrivilegeId, eventArgs.Value);}"></td>
+                                    <td class="table-data-link" style="width:400px;"@onclick="(()=>GridItemSelected(item.PrivilegeId))">@item.PrivilegeName</td>
+                                    <td style="width:240px;">@item.Description</td>          
+                                </tr> 
+                             }
+                        </table> 
+                    }  
+                }
+            </div>
+            @if(DisplayPrivileges.Count() > 0)
+            {
+               <div class="d-flex justify-content-center" style="width:100%;position:fixed;top:91%;left:10%;z-index:100;">
+                    <PagingComponent onFirstPageClicked="FirstButtonClicked" onLastPageClicked="LastButtonClicked" onPreviousPageClicked="PreviousButtonClicked" onNextPageClicked="NextButtonClicked" CurrentPage="@CurrentPage" TotalPages="@TotalPages"/>
+                </div> 
+            }
+        </CardLayout>
+    </div>
+</div>

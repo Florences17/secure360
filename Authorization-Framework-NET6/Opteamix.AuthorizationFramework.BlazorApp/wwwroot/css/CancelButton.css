@@ -1,0 +1,14 @@
+.cancel-button{
+    background-color: #9C9C9C;
+    color: #E4E4E4;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+.cancel-button:hover{
+    background-color: transparent;
+    color: #9C9C9C;
+    border: 0.5px solid #9C9C9C;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}

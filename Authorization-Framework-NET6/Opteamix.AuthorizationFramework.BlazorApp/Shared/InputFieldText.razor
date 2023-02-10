@@ -1,0 +1,36 @@
+<link href="css/InputFieldText.css" rel="stylesheet" type="text/css" />
+
+<div class="input-text-field-container px-3" style="width: @Width; height: @Height;">
+    <span class="input-text-field-name">@FieldName</span>
+    <input id="@Id" type="text" class="input-text-field-textbox" placeholder="" aria-label=""  @oninput="OnInputChanged" value="@Value"/>
+</div>
+
+@code {
+    [Parameter]
+    public string Id {get; set;}
+
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string FieldName {get; set;}
+
+    [Parameter]
+    public string Input { get; set; }
+
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public EventCallback<string> InputChanged { get; set; }
+
+    private Task OnInputChanged(ChangeEventArgs e)
+    {
+        Input = e.Value.ToString();
+
+        return InputChanged.InvokeAsync(Input);
+    }
+}

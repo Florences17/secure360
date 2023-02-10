@@ -1,0 +1,15 @@
+﻿.display-detail-card {
+    box-shadow: -5px -5px 10px #FFFFFF, 5px 5px 10px 5px #d3d3d3;
+    border-radius: 6px;
+}
+.display-text-field-name {
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: #9C9C9C;
+}
+.display-text-field-value {
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: #4E4E4E;
+    margin-top: -5px;
+}

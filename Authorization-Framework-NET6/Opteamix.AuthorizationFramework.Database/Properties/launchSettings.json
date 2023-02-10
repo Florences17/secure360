@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Opteamix.AuthorizationFramework.Database": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:13002;http://localhost:13003"
+    }
+  }
+}

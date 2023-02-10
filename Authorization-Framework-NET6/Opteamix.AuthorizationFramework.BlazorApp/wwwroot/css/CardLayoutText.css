@@ -1,0 +1,16 @@
+.item-card-text{
+    box-shadow: -5px -5px 10px #FFFFFF, 5px 5px 10px 5px #d3d3d3;
+    border-radius: 6px;
+    color: #001833;
+    cursor: pointer;
+}
+.item-card-text:hover{
+   box-shadow: -2px -2px 5px #FFFFFF, 2px 2px 5px 2px #d3d3d3;
+}
+.item-card-text-content{
+    text-align: center;
+    font-size: 26px;
+    font-weight: 300;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+}

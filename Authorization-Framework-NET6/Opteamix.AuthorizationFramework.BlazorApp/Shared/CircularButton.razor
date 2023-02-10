@@ -1,0 +1,27 @@
+<link href="css/CircularButton.css" rel="stylesheet" type="text/css" />
+
+<div id="@Id" class="d-flex align-items-center justify-content-center circular-button p-4" style="width: @Width; height: @Height;" @onclick=@CircularButtonClicked>
+    <i class="@IconName circular-button-item"></i>
+</div>
+
+@code {
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string IconName {get; set;}
+
+    [Parameter]
+    public string Id {get; set;}
+
+    [Parameter]
+    public EventCallback onCircularButtonClicked { get; set; }
+
+    protected async Task CircularButtonClicked()
+    {
+        await onCircularButtonClicked.InvokeAsync();
+    }
+}

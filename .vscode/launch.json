@@ -1,0 +1,31 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch (webapi)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/Authorization-Framework-NET6/Opteamix.AuthorizationFramework.Api/bin/Debug/net6.0/Opteamix.AuthorizationFramework.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Authorization-Framework-NET6/Opteamix.AuthorizationFramework.Api",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": "Launch and Debug Standalone Blazor WebAssembly App",
+            "type": "blazorwasm",
+            "request": "launch",
+            "cwd": "${workspaceFolder}/Authorization-Framework-NET6/Opteamix.AuthorizationFramework.BlazorApp"
+        }
+    ]
+}

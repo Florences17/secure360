@@ -1,0 +1,14 @@
+.menu-item-card-selected{
+    box-shadow: inset -5px -5px 10px #FFFFFF, inset 5px 5px 10px #b3b3b3;
+    border-radius: 6px;
+    opacity: 0.8;
+    color: #095AED;
+    cursor: pointer;
+}
+.menu-item-text{
+    text-align: center;
+    font-size: 26px;
+    font-weight: 300;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0px;
+}

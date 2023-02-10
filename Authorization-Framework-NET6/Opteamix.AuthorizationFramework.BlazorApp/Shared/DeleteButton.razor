@@ -1,0 +1,19 @@
+<link href="css/DeleteButton.css" rel="stylesheet" type="text/css" />
+
+<button class="delete-button" style="width: @Width; height: @Height;" @onclick=@DeleteButtonClicked>Delete</button>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public EventCallback onDeleteButtonClicked { get; set; }
+
+    protected async Task DeleteButtonClicked()
+    {
+        await onDeleteButtonClicked.InvokeAsync();
+    }
+}

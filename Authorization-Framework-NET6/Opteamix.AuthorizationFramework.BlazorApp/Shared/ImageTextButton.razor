@@ -1,0 +1,28 @@
+<link href="css/ImageTextButton.css" rel="stylesheet" type="text/css" />
+
+<div class="image-text-container d-flex justify-content-between align-items-center px-4 mb-3" style="width: @Width; height: @Height;" @onclick=@ButtonClicked>
+    <span class="image-text-content">@Text</span>
+    <span><i class="@IconName image-text-icon"></i></span>
+</div>
+
+@code {
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string Text {get; set;}
+
+    [Parameter]
+    public string IconName {get; set;}
+
+    [Parameter]
+    public EventCallback onButtonClicked { get; set; }
+
+    protected async Task ButtonClicked()
+    {
+        await onButtonClicked.InvokeAsync();
+    }
+}

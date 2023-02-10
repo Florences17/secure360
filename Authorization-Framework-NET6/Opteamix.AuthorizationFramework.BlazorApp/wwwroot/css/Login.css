@@ -1,0 +1,17 @@
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #3c7df7;
+    box-shadow: inset 2px 2px 5px 0px #363636, inset -2px -2px 5px #3c7df7;
+}
+.login-btn-primary{
+    /* padding: 10px 10px;
+    font-size: 26px;
+    border-radius: 5px; */
+    box-shadow: 2px 2px  #363636;
+    size: inherit;
+    width:350px;
+    color:white;
+    background: var(--unnamed-color-095aed) 0% 0% no-repeat padding-box;
+}

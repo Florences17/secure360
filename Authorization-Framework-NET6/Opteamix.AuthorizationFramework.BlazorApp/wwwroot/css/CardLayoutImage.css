@@ -1,0 +1,24 @@
+.item-card-image {
+    box-shadow: -1px -1px 10px #ffffff, 5px 5px 10px 5px #d3d3d3;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 20px;
+    min-width: 200px;
+}
+.item-card-image:hover{
+   box-shadow: -2px -2px 5px #FFFFFF, 2px 2px 5px 2px #d3d3d3;
+}
+.item-card-image-no-hover {
+    box-shadow: -5px -5px 10px #ffffff, 5px 5px 10px 5px #d3d3d3;
+    border-radius: 6px;
+    margin-right: 20px;
+    min-width: 200px;
+}
+.item-card-image-image {
+    width: 80%;
+    height: auto;
+}
+.item-card-image-no-hover-image {
+    width: 80%;
+    height: auto;
+}

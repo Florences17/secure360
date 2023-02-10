@@ -1,0 +1,20 @@
+﻿<link href="css/DisplayDetailCard.css" rel="stylesheet" type="text/css" />
+
+<div class="display-detail-card px-3 py-1" style="width: @Width; height: @Height;">
+    <span class="display-text-field-name d-flex pb-1">@FieldName</span>
+    <span class="display-text-field-value">@Value</span>
+</div>
+
+@code {
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string FieldName {get; set;}
+
+    [Parameter]
+    public string Value { get; set; }
+}

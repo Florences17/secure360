@@ -1,0 +1,13 @@
+﻿<link href="css/DisplayDetailImage.css" rel="stylesheet" type="text/css" />
+
+<div class="client-detail-image-container d-flex justify-content-center align-items-center p-4" style="height:140px; width: 400px;">
+    <img id="client-detail-image" src="@Image" alt="@AltText" style="width: 100%; height: 100%; object-fit: contain;"/> 
+</div>
+
+@code {
+    [Parameter]
+    public string Image { get; set; }
+
+    [Parameter]
+    public string AltText { get; set; }
+}

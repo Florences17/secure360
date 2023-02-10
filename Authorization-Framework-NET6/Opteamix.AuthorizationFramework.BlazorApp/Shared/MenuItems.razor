@@ -1,0 +1,63 @@
+﻿@using Opteamix.AuthorizationFramework.BlazorApp.Models
+
+<div class="col-3 justify-content-center modules-container" style="margin-right:20px">
+    @if(NavigationURL.Equals("https://localhost:7207/") || NavigationURL.Contains("/addclient") || NavigationURL.Contains("/clientdetails") || NavigationURL.Contains("/updateclient"))
+    {
+        <CardLayoutTextSelected Width="340px" Height="75px" Text="Clients"/>
+    }
+    else
+    {
+        <CardLayoutText Width="340px" Height="75px" Text="Clients" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Client))"/> 
+    }
+    @if (NavigationURL.Contains("/application") || NavigationURL.Contains("/addapplication") || NavigationURL.Contains("/addmodule") || NavigationURL.Contains("/updateapplication"))
+    {
+        <CardLayoutTextSelected Width="340px" Height="75px" Text="Applications"/>
+    }
+    else if(commonService.SelectedClient == null)
+    {
+        <CardLayoutText Width="340px" Height="75px" Text="Applications" onMenuButtonClicked="(()=>MenuButtonClick(string.Empty))"/>
+    }
+    else
+    {
+        <CardLayoutText Width="340px" Height="75px" Text="Applications" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Application))"/>
+    }
+
+    @if (SelectedApplication > 0)
+    {
+        if (NavigationURL.Contains("/privileges") || NavigationURL.Contains("/addprivilege") ||  NavigationURL.Contains("/updateprivilege"))
+        {
+            <CardLayoutTextSelected Width="340px" Height="75px" Text="Privileges"/>
+        }
+        else
+        {
+            <CardLayoutText Width="340px" Height="75px" Text="Privileges" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Privileges))"/>
+        }
+
+        if (NavigationURL.Contains("/roles") || NavigationURL.Contains("/addrole") || NavigationURL.Contains("/roledetails"))
+        {
+            <CardLayoutTextSelected Width="340px" Height="75px" Text="Roles"/>
+        }
+        else
+        {
+            <CardLayoutText Width="340px" Height="75px" Text="Roles" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Roles))"/>
+        }
+
+        if (NavigationURL.Contains("/users"))
+        {
+            <CardLayoutTextSelected Width="340px" Height="75px" Text="Users"/>
+        }
+        else
+        {
+            <CardLayoutText Width="340px" Height="75px" Text="Users" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Users))"/>
+        }
+
+        if (NavigationURL.Contains("/reports"))
+        {
+            <CardLayoutTextSelected Width="340px" Height="75px" Text="Reports"/>
+        }
+        else
+        {
+            <CardLayoutText Width="340px" Height="75px" Text="Reports" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Reports))"/>
+        }
+    }
+</div>

@@ -1,0 +1,45 @@
+<link href="css/SearchLayout.css" rel="stylesheet" type="text/css" />
+
+<div class="search-item-container d-flex justify-content-center align-items-center px-3" style="width: @Width; height: @Height;">
+    <input type="text" class="search-item-textbox" placeholder="Search" aria-label="Search" aria-describedby="search-addon" @oninput="OnInputChanged" @onchange="OnSearchCleared"/>
+    <span class="input-group-text search-item-button" @onclick="SearchButtonClicked">
+        <i class="fas fa-search search-item-button"></i>
+    </span>
+</div>
+
+@code {
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string Input { get; set; }
+
+    [Parameter]
+    public EventCallback onSearchButtonClicked { get; set; }
+
+    [Parameter]
+    public EventCallback<string> InputChanged { get; set; }
+
+    [Parameter]
+    public EventCallback onSearchCleared { get; set; }
+
+    private Task OnInputChanged(ChangeEventArgs e)
+    {
+        Input = e.Value.ToString();
+
+        return InputChanged.InvokeAsync(Input);
+    }
+
+    protected async Task SearchButtonClicked()
+    {
+        await onSearchButtonClicked.InvokeAsync();
+    }
+
+    protected async Task OnSearchCleared()
+    {
+        await onSearchCleared.InvokeAsync();
+    }
+}

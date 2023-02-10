@@ -1,0 +1,16 @@
+<link href="css/CardLayoutTextSelected.css" rel="stylesheet" type="text/css" />
+
+<div class="menu-item-card-selected d-flex justify-content-center align-items-center mb-3" style="width: @Width; height: @Height;">
+    <span class="menu-item-text">@Text</span>
+</div>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string Text {get; set;}
+}

@@ -1,0 +1,69 @@
+@page "/updateprivilege"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    @if (commonService.SelectedApplication != null)
+    {
+        <MenuItems SelectedApplication="commonService.SelectedApplication.ApplicationId"/>
+    }
+    else
+    {
+        <MenuItems SelectedApplication="0"/>
+    }
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex justify-content-between mb-4">
+            <div class="col d-flex align-items-center justify-content-start ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Image_Width="251px" Image_Height="59px" Hover= "false"/>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end me-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Application</label>
+                <CardLayoutImage Width="200px" Height="100px" Image="@commonService.SelectedApplication.ImagePath" Image_Width="125px" Image_Height="29px" Hover= "false"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="360px" ClassName="pt-4">
+            @if(privilege_state == LoadingContainerState.Loading)
+            {
+                <img src="/gif/loading.gif" width="100px" height="100px"/>
+            }
+            else
+            {
+                <span class="heading-text my-4 mx-5">Edit Privilege</span>
+                <div class="d-flex justify-content-between my-4 mx-5" style="height:150px">
+                   <InputFieldText Id="add-module-name" Width="400px" Height="60px" FieldName="Privilege Name" Value="@PrivilegeName" @bind-Input="PrivilegeName"/>
+                   <InputFieldText Id="add-module-description" Width="400px" Height="60px" FieldName="Description" Value="@Description" @bind-Input="Description"/>
+                </div>
+                <div class="d-flex justify-content-between mt-4 mx-5" style="height:30px">
+                    <div class="col-5 d-flex justify-content-between">
+                        <UpdateBUtton Width="180px" Height="40px" onUpdateButtonClicked="SaveButtonClick"/>
+                        <CancelButton Width="180px" Height="40px" onCancelButtonClicked="(()=>CancelButtonClick(Constants.Privileges))" />
+                    </div>
+                    <div class="col-5 d-flex justify-content-end">
+                        @* <DeleteButton Width="180px" Height="40px" onDeleteButtonClicked="OpenDeleteDialog" /> *@
+                    </div>
+                </div>
+            }
+            
+        </CardLayout>
+    </div>
+</div>
+
+@if (DeleteDialogOpen)
+{
+	<ConfirmationDialog Title="Are you sure?"
+				  Text="Do you want to delete this entry?"
+				  OnClose="@OnDeleteDialogClose"
+				  DialogType="ConfirmationDialog.ModalDialogType.DeleteCancel">
+	</ConfirmationDialog>
+}
+@if (CancelDialogOpen)
+{
+	<ConfirmationDialog Title="Save Changes"
+				  Text="Do you want to save changes before leaving the page?"
+				  OnClose="@OnCancelDialogClose"
+				  DialogType="ConfirmationDialog.ModalDialogType.SaveCancel">
+	</ConfirmationDialog>
+}
+
+

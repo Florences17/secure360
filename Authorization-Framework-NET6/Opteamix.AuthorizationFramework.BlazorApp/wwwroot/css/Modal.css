@@ -1,0 +1,94 @@
+﻿.modal-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10,10,10,.8);
+}
+
+.blazored-toast-success {
+    background-color: #095AED;
+}
+
+.blazored-toast-info {
+    background-color: #095AED;
+}
+
+.blazored-toast-warning {
+    background-color: #095AED;
+}
+
+.blazored-toast-error {
+    background-color: #095AED;
+}
+
+.blazored-toast-container {
+    width: 400px;
+    height: 100px;
+}
+
+.blazored-toast-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1rem 0 0;
+    font-size: 30px;
+}
+.blazored-toast-body .blazored-toast-header h5 {
+    font-size: 18px;
+}
+.blazored-toast-body p {
+    font-size: 14px;
+}
+
+.modal {
+    display: block;
+    background-color: rgba(10,10,10,.8);
+    font-family: 'Poppins', sans-serif;
+}
+.modal-dialog {
+    background-color: rgb(186,190,197);
+    top: 40%;
+    height: 175px;
+    width: 520px;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 6px;
+}
+.modal-content {
+    height: 175px;
+    width: 520px;
+    background: #cacaca;
+    padding: 0;
+    border-radius: 6px;
+}
+.modal-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #095AED;
+    padding: 10px;
+}
+.close-button-popup {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+.modal-footer{
+    justify-content: space-between;
+}
+.modal-button-primary{
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color: #095AED;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+}
+.modal-button-secondary {
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color: #9C9C9C;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+}

@@ -1,0 +1,68 @@
+﻿@page "/addclient"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Clients
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    <MenuItems />
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="680px" ClassName="pt-3">
+            <span class="heading-text my-4 mx-5">Client Setup</span>
+            <div class="d-flex justify-content-between mt-3 mb-2 mx-5" style="height:75px; margin-right: 115px;">
+                <InputFieldText Id="add-client-name" Width="400px" Height="60px" FieldName="Client Name" @bind-Input="Name" />
+                <InputFieldText Id="add-client-email" Width="400px" Height="60px" FieldName="Short Name" @bind-Input="ShortName"/>
+            </div>
+            <div class="d-flex justify-content-start mx-5" style="height:155px">
+                <div class="add-application-image-container d-flex justify-content-center align-items-center p-4" style="height:140px; width: 400px;">
+                    <span id="add-client-text" style="display: block;">Add Application logo</span>
+                    <img id="add-client-image" src="" style="width: 100%; height: 100%; object-fit: contain; display: none;"/> 
+                </div>
+                <div class="py-1 ms-4 me-5" style="height:140px; width: 40px; margin-right: 2px;">
+                    <InputFile type="file" id="addclientimageupload" style="display:none" OnChange=@(UploadPreviewImage) accept="image/*"/> 
+                    <CircularButton Id="add-client-image-button" Width="36px" Height="36px" IconName="fa fa-plus" onCircularButtonClicked="AddImageButtonClick"/>
+                    <div style="height: 37px;"></div>
+                    <CircularButton Id="delete-client-image-button" Width="36px" Height="36px" IconName="fas fa-trash-alt" onCircularButtonClicked="ClearPreviewImage"/>
+                </div>
+                <div class="ms-5 ps-1">
+                    <InputFieldText Id="add-client-website" Width="400px" Height="60px" FieldName="Website" @bind-Input="Website" />
+                    <div class="my-4"></div>
+                    <InputFieldText Id="add-client-phone" Width="400px" Height="60px" FieldName="Email" @bind-Input="Email" />
+                </div>
+            </div>
+            <div class="d-flex justify-content-between my-3 mx-5">
+                <span class="heading-text col-6">Address</span>
+                <span class="heading-text col-5">Contact Person Details</span>
+            </div>
+            <div class="d-flex justify-content-between mt-3 mb-2 mx-5" style="height:75px;">
+                <InputFieldText Id="add-client-address1" Width="400px" Height="60px" FieldName="Address Line 1" @bind-Input="AddressLine1" />
+                <InputFieldText Id="add-client-contact-person" Width="400px" Height="60px" FieldName="Contact Person" @bind-Input="ContactPerson" />
+            </div>
+            <div class="d-flex justify-content-between my-2 mx-5" style="height:75px; margin-right: 115px;">
+                <InputFieldText Id="add-client-address2" Width="400px" Height="60px" FieldName="Address Line 2" @bind-Input="AddressLine2" />
+                <InputFieldText Id="add-client-contact-person-mobile" Width="400px" Height="60px" FieldName="Contact Person Mobile Number" @bind-Input="CPNumber" />
+            </div>
+            <div class="d-flex justify-content-between my-2 mx-5" style="height:75px; margin-right: 115px;">
+                <InputFieldText Id="add-application-name" Width="400px" Height="60px" FieldName="City" @bind-Input="City" />
+                <InputFieldText Id="add-application-abbreviation" Width="400px" Height="60px" FieldName="Contact Person Email Address" @bind-Input="CPEmail" />
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:30px">
+                <div class="col-5 d-flex justify-content-between">
+                    <SaveButton Width="180px" Height="40px" onSaveButtonClicked="SaveButtonClick"/>
+                    <CancelButton Width="180px" Height="40px" onCancelButtonClicked="OpenCancelDialog"/>
+                </div>
+            </div>
+        </CardLayout>
+    </div>
+</div>
+
+
+@if (CancelDialogOpen)
+{
+	<ConfirmationDialog Title="Save Changes"
+				  Text="Do you want to save changes before leaving the page?"
+				  OnClose="@OnCancelDialogClose"
+				  DialogType="ConfirmationDialog.ModalDialogType.SaveCancel">
+	</ConfirmationDialog>
+}
+
+

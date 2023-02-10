@@ -1,0 +1,196 @@
+@page "/roledetails"
+@using Models.Modules
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Privilege
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Services
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    @if (commonService.SelectedApplication != null)
+    {
+        <MenuItems SelectedApplication="commonService.SelectedApplication.ApplicationId" />
+    }
+    else
+    {
+        <MenuItems SelectedApplication="0" />
+    }
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex justify-content-between mb-4">
+            <div class="col d-flex align-items-center justify-content-start ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Image_Width="251px" Image_Height="59px" Hover="false" />
+            </div>
+            <div class="col d-flex align-items-center justify-content-end me-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Application</label>
+                <CardLayoutImage Width="200px" Height="100px" Image="@commonService.SelectedApplication.ImagePath" Image_Width="125px" Image_Height="29px" Hover="false" />
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="260px" ClassName="pt-3 mb-4">
+            <span class="heading-text my-3 mx-5">Role</span>
+            <div class="d-flex justify-content-between mt-3 mb-2 mx-5" style="height:75px">
+                <InputFieldText Id="add-role-name" Width="400px" Height="60px" FieldName="Role Name" Value="@RoleName" @bind-Input="RoleName" />
+                <InputFieldText Id="add-role-abbreviation" Width="400px" Height="60px" FieldName="Short Name" Value="@ShortName" @bind-Input="ShortName" />
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:75px">
+                <InputFieldText Id="add-role-application" Width="400px" Height="90px" FieldName="Description" Value="@RoleDescription" @bind-Input="RoleDescription" />
+                <InputFieldText Id="add-role-description" Width="400px" Height="60px" FieldName="User Count" />
+            </div>
+        </CardLayout>
+        @*        <CardLayout Width="1060px" Height="340px" ClassName="pt-3">
+        *@
+        <CardLayout Width="1060px" Height="545px" ClassName="pt-3">
+            <span class="heading-text my-3 mx-5">Permissions</span>
+            @*<div class="d-flex justify-content-between my-3 mx-5 roles-permission-table" style="max-height:200px;width:1000px;overflow:auto;position:relative;">*@
+
+            <div class="d-flex justify-content-between my-3 mx-5 roles-permission-table" style="max-height:385px;width:1000px;overflow:auto;position:relative;">
+                <table class="table" style="border:true;border-color:black;height:100%;position:relative;border-collapse:collapse;table-layout:auto;">
+                    <thead class="permission-table-head">
+                        @if (privilege_state == LoadingContainerState.Loading)
+                        {
+                            <img src="/gif/loading.gif" width="100px" height="100px" />
+                        }
+                        else if (privilege_state == LoadingContainerState.Loaded)
+                        {
+                            <tr style="background-color: Grey;position:-webkit-sticky;position:sticky;top:0;z-index: 1;">
+                                @if (DisplayPrivileges.Count() > 0)
+                                {
+                                //<th style="background-color: Grey;position:-webkit-sticky;position:sticky;left:0; min-width:250px;"></th>
+
+                                    <th style="background-color: Grey;position:-webkit-sticky;position:sticky;left:0; min-width:285px;"></th>
+                                    foreach (FetchPrivilegeModel Prev in DisplayPrivileges)
+                                    {
+                                        <th style="text-align:center;z-index: -1; width:20px;">@Prev.PrivilegeName</th>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </thead>
+                    <tbody class="permission-table-body">
+                        @if (Displayapps.Count() > 0)
+                        {
+                            @foreach (Models.Applications.Application app in Displayapps)
+                            {
+                                <tr>
+                                    <th style="font-size:16px;font-weight:bold;color:#4E4E4E;position:-webkit-sticky;position:sticky;left:0;background-color: 	#F5F5F5;width:150px;">
+                                        <div class="d-flex justify-content-between">
+                                            <span>@app.ApplicationName</span>
+                                            @if (AppExpand == false)
+                                            {
+                                                <span style="margin-right:5px" @onclick="ToggleAppExpand"><i class="fas fa-chevron-right" style="cursor:pointer;"></i></span>
+                                            }
+                                            else
+                                            {
+                                                <span style="margin-right:5px" @onclick="ToggleAppExpand"><i class="fas fa-chevron-down" style="cursor:pointer;"></i></span>
+                                            }
+                                        </div>
+                                    </th>
+                                    @if (DisplayPrivileges.Count() > 0)
+                                    {
+                                        foreach (FetchPrivilegeModel Prev in DisplayPrivileges)
+                                        {
+                                            <td style="text-align:center;background-color:#F5F5F5;width:20px;"></td>
+                                        }
+                                    }
+                                </tr>
+
+                                @if (AppExpand == true)
+                                {
+                                    if (DisplayModules.Count() > 0)
+                                    {
+                                        @foreach (Module item in DisplayModules)
+                                        {
+
+                                            if (item.ApplicationName == app.ApplicationName)
+                                            {
+                                                <tr>
+                                                    <td style="width:300px;">
+                                                        <div class="d-flex justify-content-between">
+
+                                                            <span>@item.ModuleName</span>
+                                                            @if (ModuleExpand == false)
+                                                            {
+                                                                <span style="margin-right:5px" @onclick="ToggleModuleExpand"><i class="fas fa-chevron-right" style="cursor:pointer;"></i></span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span style="margin-right:5px" @onclick="ToggleModuleExpand"><i class="fas fa-chevron-down" style="cursor:pointer;"></i></span>
+                                                            }
+                                                        </div>
+                                                    </td>
+                                                    @if (DisplayPrivileges.Count() > 0)
+                                                    {
+
+                                                        foreach (FetchPrivilegeModel prev in DisplayPrivileges)
+                                                        {
+                                                            var name = from entity in entityPrivilegeslst.Where(a => (a.PrivilegeId == prev.PrivilegeId) && (a.ModuleId == item.ModuleId)) select entity;
+                                                            if (name != null)
+                                                            {
+                                                                if (name.Count() > 0)
+                                                                {
+                                                                    <td style="background-color:#F5F5F5; text-align: center;"><input type="checkbox" class="checkbox-round" style="width:25px; height:25px;" checked="checked" value="@item.ApplicationName,@item.ModuleName,@prev.PrivilegeName" @onchange="eventArgs => { RoleSelected(app.ApplicationId, item.ModuleId, prev.PrivilegeId, eventArgs.Value);}" /></td>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td style="background-color:#F5F5F5; text-align: center;"><input type="checkbox" class="checkbox-round" style="width:25px; height:25px;" value="@item.ApplicationName,@item.ModuleName,@prev.PrivilegeName" @onchange="eventArgs => { RoleSelected(app.ApplicationId, item.ModuleId, prev.PrivilegeId, eventArgs.Value);}" /></td>
+
+                                                                }
+
+                                                            }
+                                                        }
+                                                    }
+                                                </tr>
+                                                if (DisplaySubModules != null)
+                                                {
+                                                    if (DisplaySubModules.Count() > 0)
+                                                    {
+                                                        foreach (var submodule in DisplaySubModules)
+                                                        {
+                                                            if (submodule.ModuleId == item.ModuleId)
+                                                            {
+                                                                @if (ModuleExpand == true)
+                                                                {
+                                                                    <tr>
+                                                                        <td style="width:300px; padding-left: 20px;">
+                                                                            @submodule.SubModuleName
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            @if (AppExpand == false)
+            {
+                <div class="d-flex justify-content-between mx-5" style="height:70px;margin-top: 10%;">
+                    <div class="col-5 d-flex justify-content-between">
+                        <SaveButton Width="180px" Height="40px" onSaveButtonClicked="SaveButtonClick" />
+                        <CancelButton Width="180px" Height="40px" onCancelButtonClicked="(()=>CancelButtonClick(Constants.Roles))" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="d-flex justify-content-between mx-5 mt-2" style="height:70px;">
+                    <div class="col-5 d-flex justify-content-between">
+                        <SaveButton Width="180px" Height="40px" onSaveButtonClicked="SaveButtonClick" />
+                        <CancelButton Width="180px" Height="40px" onCancelButtonClicked="(()=>CancelButtonClick(Constants.Roles))" />
+                    </div>
+                </div>
+            }
+        </CardLayout>
+    </div>
+</div>
+
+

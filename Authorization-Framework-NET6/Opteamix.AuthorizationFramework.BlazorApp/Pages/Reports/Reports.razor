@@ -1,0 +1,79 @@
+﻿@page "/reports"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Modules
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    @if (commonService.SelectedApplication != null)
+    {
+        <MenuItems SelectedApplication="commonService.SelectedApplication.ApplicationId"/>
+    }
+    else
+    {
+        <MenuItems SelectedApplication="0"/>
+    }
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex align-item-center justify-content-between mb-4">
+            <div class="col d-flex align-items-center ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Hover= "false"/>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end me-5">
+                <ImageTextButton Width="200px" Height="40px" Text="Generate Report " IconName="fas fa-file-alt"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="211px" ClassName="mb-4">
+            <div class="d-flex justify-content-between mx-5 py-3 align-items-center" style="height: 70px;">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Select Application</label>                       
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:140px; padding-top: 1%;">
+                <div class="col-9 d-flex application-items-container px-1 py-1">
+                    @if (application_state == LoadingContainerState.Loading)
+                    {
+                        <img src="/gif/loading.gif" width="100px" height="100px"/>
+                    }
+                    else if (application_state == LoadingContainerState.Loaded)
+                    {
+                        if (DisplayApplications != null)
+                        {
+                            foreach (var item in DisplayApplications)
+                            {
+                                if (SelectedApplication != null)
+                                {
+                                    if (SelectedApplication.ApplicationId == item.ApplicationId)
+                                    {
+                                        <CardLayoutImageSelected Width="200px" Height="100px" Image="@item.ImagePath" />
+                                    }
+                                    else
+                                    {
+                                        <CardLayoutImage Width="200px" Height="100px" Image="@item.ImagePath" Hover= "true" onApplicationButtonClicked="(()=>ApplicationButtonClick(item))"/>
+                                    }
+                                }
+                                else
+                                {
+                                    <CardLayoutImage Width="200px" Height="100px" Image="@item.ImagePath" Hover= "true" onApplicationButtonClicked="(()=>ApplicationButtonClick(item))"/>
+                                }
+                            }            
+                        }                      
+                    }
+                </div>
+            </div>
+        </CardLayout>
+        @if(SelectedApplication != null)
+        {
+            if (SelectedApplication.ApplicationId > 0)
+            {
+                <CardLayout Width="1060px" Height="200px" ClassName="pt-2">
+                    <div class="col d-flex align-items-center justify-content-start ms-5 mt-3">
+                        <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Modules</label>                       
+                        <InputFieldDropDown Id="add-module-parent-dropdown" Width="400px" Height="60px" FieldName="Module Name" DropdownList="DisplayModules" @bind-Input="ModuleSelected"/>
+                    </div>
+                    <div class="col d-flex align-items-center justify-content-start ms-5" style="margin-top: 30px;">
+                        <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 54px">Roles</label>                       
+                        <InputFieldDropDown Id="add-module-parent-dropdown" Width="400px" Height="60px" FieldName="Role Name" DropdownList="DisplayRoles" @bind-Input="RoleSelected"/>
+                    </div>
+                </CardLayout>
+            } 
+        }
+    </div>
+</div>

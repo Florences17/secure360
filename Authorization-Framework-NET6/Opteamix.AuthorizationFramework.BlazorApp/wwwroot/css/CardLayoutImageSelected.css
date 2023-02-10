@@ -1,0 +1,26 @@
+.item-card-image-selected {
+    box-shadow: inset -5px -5px 10px #FFFFFF, inset 5px 5px 10px #b3b3b3;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 20px;
+    min-width: 200px;
+}
+.item-card-image-selected:hover{
+   box-shadow: -2px -2px 5px #FFFFFF, 2px 2px 5px 2px #d3d3d3;
+}
+.item-card-image-selected-no-hover {
+    box-shadow: inset -5px -5px 10px #FFFFFF, inset 5px 5px 10px 5px #d3d3d3;
+    border-radius: 6px;
+    margin-right: 20px;
+    min-width: 200px;
+}
+
+.item-card-image-selected-image {
+    width: 80%;
+    height: auto;
+}
+
+.item-card-image-selected-no-hover-image {
+    width: 80%;
+    height: auto;
+}

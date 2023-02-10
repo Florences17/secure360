@@ -1,0 +1,21 @@
+﻿@using Blazored.Toast.Configuration
+
+@inherits LayoutComponentBase
+
+<div class="page" style="height:100%">
+    <main>
+        <article class="content p-0" style="height:100%">
+            @Body
+        </article>
+    </main>
+</div>
+
+<BlazoredToasts 
+    Position="ToastPosition.BottomLeft"
+    Timeout="10"
+    IconType="IconType.FontAwesome"
+    SuccessClass="success-toast-override"
+    SuccessIcon="fas fa-check-circle"
+    ErrorIcon="fas fa-times"
+    WarningIcon="fas fa-exclamation-circle">
+</BlazoredToasts>

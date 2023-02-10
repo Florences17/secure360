@@ -1,0 +1,31 @@
+<div>
+    <div>
+        @if (MetaData.TotalCount < MetaData.CurrentPage * MetaData.PageSize)
+        {
+            <span>Showing @((MetaData.CurrentPage - 1 ) * MetaData.PageSize + 1) to @(MetaData.TotalCount) of @(MetaData.TotalCount) entries</span>
+        }
+        else if (MetaData.TotalCount < MetaData.PageSize)
+        {
+            <span>Showing @((MetaData.CurrentPage - 1 ) * MetaData.PageSize + 1) to @(MetaData.TotalCount) of @(MetaData.TotalCount) entries</span>
+        }
+        else
+        {
+            <span>Showing @((MetaData.CurrentPage - 1 ) * MetaData.PageSize + 1) to @(MetaData.CurrentPage * MetaData.PageSize) of @(MetaData.TotalCount) entries</span>
+        }
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            @foreach (var link in _links)
+            {
+                <li @onclick="() => OnSelectedPage(link)" style="cursor: pointer" class="page-item @(link.Enabled ? null : "disabled") @(link.Active ? "active" : null) ">
+                    <span class="page-link" href="#">@link.Text</span>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@code{
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

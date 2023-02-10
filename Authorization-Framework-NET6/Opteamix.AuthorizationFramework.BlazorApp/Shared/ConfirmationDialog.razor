@@ -1,0 +1,88 @@
+﻿<div class="modal fade show" id="myModal" aria-modal="true" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content px-3 pt-2">
+			<div class="modal-header" style="border: none; padding: 0%;">
+				<span class="modal-title">@Title</span>
+				<button type="button" class="close-button-popup" @onclick="@ModalCancel">&times;</button>
+			</div>
+			<div class="modal-body px-2" style="border: none; padding: 0%;">
+				<p>@Text</p>
+			</div>
+			<div class="modal-footer pb-2" style="border: none; padding: 0%;">
+				@switch (DialogType)
+				{
+					case ModalDialogType.Ok:
+						<button type="button" class="modal-button-primary" @onclick=@ModalOk>OK</button>
+						break;
+					case ModalDialogType.OkCancel:
+						<button type="button" class="modal-button-primary" @onclick="@ModalOk">Yes</button>
+						<button type="button" class="modal-button-secondary" @onclick=@ModalCancel>No</button>
+						break;
+					case ModalDialogType.DeleteCancel:
+						<button type="button" class="btn btn-secondary" @onclick="@ModalCancel">Cancel</button>
+						<button type="button" class="btn btn-danger" @onclick=@ModalOk>Delete</button>
+						break;
+					case ModalDialogType.YesNoCancel:
+						<button type="button" class="modal-button-primary" @onclick="@ModalYesCancel">Yes</button>
+						<button type="button" class="modal-button-secondary" @onclick=@ModalNoCancel>No</button>
+						break;
+					case ModalDialogType.YesCancel:
+						<button type="button" class="modal-button-primary" @onclick="@ModalYesCancel">Yes</button>
+						<button type="button" class="modal-button-secondary" @onclick=@ModalNoCancel>Cancel</button>
+						break;
+					case ModalDialogType.SaveCancel:
+						<button type="button" class="modal-button-primary" @onclick="@SaveCancel">Review Changes</button>
+						<button type="button" class="modal-button-secondary" @onclick=@ModalOk>Discard Changes</button>
+						break;
+				}
+			</div>
+		</div>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string Title { get; set; }
+
+	[Parameter]
+	public string Text { get; set; }
+
+	[Parameter]
+	public EventCallback<bool> OnClose { get; set; }
+
+	[Parameter]
+	public ModalDialogType DialogType { get; set; }
+
+	private Task ModalCancel()
+	{
+		return OnClose.InvokeAsync(false);
+	}
+
+	private Task ModalOk()
+	{
+		return OnClose.InvokeAsync(true);
+	}
+
+	private Task ModalYesCancel()
+	{
+		return OnClose.InvokeAsync(true);
+	}
+
+	private Task ModalNoCancel()
+	{
+		return OnClose.InvokeAsync(false);
+	}private Task SaveCancel()
+	{
+		return OnClose.InvokeAsync(false);
+	}
+
+	public enum ModalDialogType
+	{
+		Ok,
+		OkCancel,
+		DeleteCancel,
+		YesNoCancel,
+		YesCancel,
+		SaveCancel
+	}
+}

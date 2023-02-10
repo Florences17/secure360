@@ -1,0 +1,65 @@
+@page "/addprivilege"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+
+<div class="top-row px-5 justify-content-around">
+    <div class="col-6"></div>
+        <span class="">Welcome Vinayak</span>
+    <div class="top-user d-flex justify-content-center align-items-center">
+        <i class="fas fa-user top-user-icon"></i>
+    </div>
+    <div class="col-1"></div>
+</div>
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    <div class="col-3 justify-content-center modules-container" style="margin-right:20px">
+        <CardLayoutText Width="340px" Height="75px" Text="Clients" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Client))"/>            
+        <CardLayoutText Width="340px" Height="75px" Text="Applications" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Application))"/>
+        <CardLayoutTextSelected Width="340px" Height="75px" Text="Privileges"/>
+        <CardLayoutText Width="340px" Height="75px" Text="Roles" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Roles))"/>
+        <CardLayoutText Width="340px" Height="75px" Text="Users" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Users))"/>
+        <CardLayoutText Width="340px" Height="75px" Text="Reports" onMenuButtonClicked="(()=>MenuButtonClick(Constants.Reports))"/>   
+    </div>
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex justify-content-between mb-4">
+            <div class="col d-flex align-items-center justify-content-start ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Image_Width="251px" Image_Height="59px" Hover= "false"/>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end me-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Application</label>
+                <CardLayoutImage Width="200px" Height="100px" Image="@commonService.SelectedApplication.ImagePath" Image_Width="125px" Image_Height="29px" Hover= "false"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="360px" ClassName="pt-4">
+            
+            <span class="heading-text my-4 mx-5">Privilege setup</span>
+            
+            <div class="d-flex justify-content-between my-4 mx-5" style="height:150px">
+                <InputFieldText Id="add-privilege-name"  Width="400px" Height="60px" FieldName="Privilege Name" @bind-Input="PrivilegeName"/>
+                <InputFieldText Id="add-privilege-description" Width="400px" Height="60px" FieldName="Description" @bind-Input="Description"/>
+            </div>
+            
+
+            <div class="d-flex justify-content-between mt-4 mx-5" style="height:30px">
+                <div class="col-5 d-flex justify-content-between">
+                    <SaveButton Width="180px" Height="40px"  onSaveButtonClicked="SaveButtonClick" />
+                    <CancelButton Width="180px" Height="40px" onCancelButtonClicked="OpenCancelDialog"/>
+                </div>
+                <div class="col-5 d-flex justify-content-end">
+                    @* <DeleteButton Width="180px" Height="40px" onDeleteButtonClicked="(()=>DeleteButtonClick())"/> *@
+                </div>
+            </div>
+            
+        </CardLayout>
+    </div>
+</div>
+
+@if (CancelDialogOpen)
+{
+	<ConfirmationDialog Title="Save Changes"
+				  Text="Do you want to save changes before leaving the page?"
+				  OnClose="@OnCancelDialogClose"
+				  DialogType="ConfirmationDialog.ModalDialogType.SaveCancel">
+	</ConfirmationDialog>
+}
+
+

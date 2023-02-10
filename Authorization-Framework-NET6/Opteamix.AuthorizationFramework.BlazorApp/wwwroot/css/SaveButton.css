@@ -1,0 +1,14 @@
+.save-button{
+    background-color: #095AED;
+    color: #E4E4E4;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+.save-button:hover{
+    background-color: transparent;
+    color: #095AED;
+    border: 0.5px solid #095AED;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}

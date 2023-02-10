@@ -1,0 +1,14 @@
+.icon-button{
+    background-color: #095AED;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+.icon-button-item {
+    display: inline-block;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    padding: 0.2em 0.3em;
+    margin-left: 10px;
+}

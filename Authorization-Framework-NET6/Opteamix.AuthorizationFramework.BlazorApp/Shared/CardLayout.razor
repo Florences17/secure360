@@ -1,0 +1,19 @@
+<link href="css/CardLayout.css" rel="stylesheet" type="text/css" />
+
+<div class="content-card @ClassName" style="width: @Width; height: @Height;">
+    @ChildContent
+</div>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public string ClassName {get;set;}
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

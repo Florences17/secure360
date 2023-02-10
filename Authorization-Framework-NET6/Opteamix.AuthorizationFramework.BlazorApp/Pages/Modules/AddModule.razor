@@ -1,0 +1,55 @@
+﻿@page "/addmodule"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    <MenuItems />
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex justify-content-between mb-4">
+            <div class="col d-flex align-items-center justify-content-start ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Image_Width="251px" Image_Height="59px" Hover= "false"/>
+            </div>
+            <div class="col d-flex align-items-center justify-content-end me-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Application</label>
+                <CardLayoutImage Width="200px" Height="100px" Image="@commonService.SelectedApplication.ImagePath" Image_Width="125px" Image_Height="29px" Hover= "false"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="360px" ClassName="pt-4">
+            
+            <div class="d-flex justify-content-between mx-5" style="height:50px">
+                <span class="heading-text">Module setup</span>
+            </div>
+            <div class="d-flex justify-content-between my-3 mx-5" style="height:75px">
+                <InputFieldText Id="add-module-name" Width="400px" Height="60px" FieldName="Module Name" @bind-Input="Name"/>
+                <InputFieldText Id="add-module-abbreviation" Width="400px" Height="60px" FieldName="Abbreviation" @bind-Input="Abbreviation"/>
+            </div>
+            
+            <div class="d-flex justify-content-between mx-5" style="height:75px">
+                <InputFieldDropDown Id="add-module-parent-dropdown" Width="400px" Height="60px" FieldName="Select Parent Module" DropdownList="ParentModules" @bind-Input="ParentModuleSelected"/>
+                <InputFieldText Id="add-module-description" Width="400px" Height="60px" FieldName="Description" @bind-Input="Description"/>
+            </div>
+
+            <div class="d-flex justify-content-between mt-3 mx-5" style="height:30px">
+                <div class="col-5 d-flex justify-content-between">
+                    <SaveButton Width="180px" Height="40px" onSaveButtonClicked="SaveButtonClick"/>
+                    <CancelButton Width="180px" Height="40px" onCancelButtonClicked="OpenCancelDialog"/>
+                </div>
+                <div class="col-5 d-flex justify-content-end">
+                    @*<DeleteButton Width="180px" Height="40px" />*@
+                </div>
+            </div>
+        </CardLayout>
+    </div>
+</div>
+
+@if (CancelDialogOpen)
+{
+	<ConfirmationDialog Title="Save Changes"
+				  Text="Do you want to save changes before leaving the page?"
+				  OnClose="@OnCancelDialogClose"
+				  DialogType="ConfirmationDialog.ModalDialogType.SaveCancel">
+	</ConfirmationDialog>
+}
+
+

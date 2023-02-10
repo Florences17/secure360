@@ -1,0 +1,21 @@
+﻿@using System.Collections.Specialized
+<link href="css/InputFieldDropDown.css" rel="stylesheet" type="text/css" />
+
+<div class="input-dropdown-field-container px-3" style="width: @Width; height: @Height;">
+    <span class="input-dropdown-field-name">@FieldName</span>
+    <select id="@Id" type="select" class="input-dropdown-field-dropdown" placeholder="" aria-label=""  @onchange="OnInputChanged" value="@Value">
+        @foreach(var item in DropdownList)
+        {
+         
+            if(item.Id == 0)
+            {
+                <option value="@item.Id" selected>@item.Value</option>
+            }
+            else
+            {
+                <option value="@item.Id">@item.Value</option>
+            }
+        }
+    </select>
+</div>
+

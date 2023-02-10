@@ -1,0 +1,167 @@
+@page "/application"
+@inject IJSRuntime JS
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Modules
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    @if(commonService.SelectedApplication != null)
+    {
+        <MenuItems SelectedApplication="commonService.SelectedApplication.ApplicationId"/>
+    }
+    else
+    {
+        <MenuItems SelectedApplication="0"/>
+    }
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="140px" ClassName="d-flex align-item-center mb-4">
+            <div class="col d-flex align-items-center justify-content-start ms-5">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client Name</label>                       
+                <CardLayoutImage Width="300px" Height="100px" Image="@commonService.SelectedClient.ImagePath" Hover= "false"/>
+            </div>
+        </CardLayout>
+        <CardLayout Width="1060px" Height="211px" ClassName="mb-4">
+            <div class="d-flex justify-content-between mx-5 py-3 align-items-center" style="height: 70px;">
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Select Application</label>                       
+                <SearchLayout Width="300px" Height="40px" @bind-Input="SearchApplicationValue" onSearchButtonClicked="SearchApplicationButtonClicked" onSearchCleared="SearchApplicationCleared"/>
+                <IconButton Width="185px" Height="36px" IconName="fa fa-pencil-alt" Text="Edit Application" onIconButtonClicked="(()=>IconButtonClick(Constants.UpdateApplication, Constants.Update))"/>
+                <IconButton Width="200px" Height="36px" IconName="fa fa-plus" Text="Add Application" onIconButtonClicked="(()=>IconButtonClick(Constants.AddApplication, Constants.Add))"/>
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:140px; padding-top: 1%;">
+                <div class="col-9 d-flex application-items-container px-1 py-1">
+                    @if (application_state == LoadingContainerState.Loading)
+                    {
+                        <img src="/gif/loading.gif" width="100px" height="100px"/>
+                    }
+                    else if (application_state == LoadingContainerState.Loaded)
+                    {
+                        if (commonService.Applications != null)
+                        {
+                            foreach (var item in commonService.Applications)
+                            {
+                                if (commonService.SelectedApplication != null)
+                                {
+                                    if (commonService.SelectedApplication.ApplicationId == item.ApplicationId)
+                                    {
+                                        <CardLayoutImageSelected Width="200px" Height="100px" Image="@item.ImagePath" />
+                                    }
+                                    else
+                                    {
+                                        <CardLayoutImage Width="200px" Height="100px" Image="@item.ImagePath" Hover= "true"  onApplicationButtonClicked="(()=>ApplicationButtonClick(item))"/>
+                                    }
+                                }
+                                else
+                                {
+                                    <CardLayoutImage Width="200px" Height="100px" Image="@item.ImagePath" Hover= "true" onApplicationButtonClicked="(()=>ApplicationButtonClick(item))"/>
+                                }
+                            }            
+                        }                      
+                    }
+                </div>
+                <div class="col-3" style="width: fit-content;">
+                    <InputFile type="file" id="importexcelfileupload" style="display:none" OnChange=@(OnExcelChanged) accept=".xlsx, .xls, .csv" itemref="@ExcelFile"/> 
+                    <ImageTextButton Width="140px" Height="40px" Text="Import" IconName="fas fa-file-import" onButtonClicked="(()=>ImageTextButtonClick(Constants.Import))"/>
+                    <ImageTextButton Width="140px" Height="40px" Text="Export" IconName="fas fa-file-export" onButtonClicked="(()=>ImageTextButtonClick(Constants.Export))"/>
+                </div>
+            </div>
+        </CardLayout>
+        @if(commonService.SelectedApplication != null)
+        {
+            if (commonService.SelectedApplication.ApplicationId > 0)
+            {
+                <CardLayout Width="1060px" Height="400px" ClassName="pt-2">
+                    <div class="d-flex justify-content-between mx-5 py-3 align-items-center" style="height: 70px;">
+                        <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Modules</label>                       
+                        <SearchLayout Width="400px" Height="40px" @bind-Input="SearchModuleValue" onSearchButtonClicked="SearchModuleButtonClicked" onSearchCleared="SearchModuleCleared"/>
+                        <div class="col-4 d-flex justify-content-between"> 
+                            <IconButton Width="170px" Height="36px" IconName="fa fa-plus" Text="Create new" onIconButtonClicked="(()=>IconButtonClick(Constants.AddModule, Constants.Create))"/>
+                            <IconButton Width="118px" Height="36px" IconName="fa fa-trash" Text="Delete" onIconButtonClicked="(()=>IconButtonClick(Constants.Application, Constants.Delete))"/>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between mx-5 overflow-auto" style="padding-top: 2%;">
+                        @if (module_state == LoadingContainerState.Loading)
+                        {
+                            <img src="/gif/loading.gif" width="100px" height="100px"/>
+                        }
+                        else if (module_state == LoadingContainerState.Loaded)
+                        {
+                            if (DisplayModules.Count() > 0)
+                            {
+                                <table> 
+                                     <tr>
+                                        <th><input type="checkbox" class="checkbox-round" /></th>
+                                        <th>Module Name</th>
+                                        <th>Abbrevation</th>
+                                        <th>Description</th>
+                                        <th>Application Name</th>
+                                     </tr>
+                                     @foreach(Module item in DisplayModules)
+                                     {
+                                        <tr>
+                                            <td style="width:40px;"><input type="checkbox" class="checkbox-round" value="@item.ModuleId" @onchange="eventArgs => { ModulesSelectedAsync(item.ModuleId, eventArgs.Value); }"/></td>
+                                            <td style="width:300px;">
+                                                <ExpandableColumn LinkName="@item.ModuleName" onLinkClicked="(()=>GridItemSelected(item.ModuleId))" onStatusChanged="@HandleExpandStatus"/>
+                                            </td>
+                                            <td style="width:180px;">@item.Abbreviation</td>
+                                            <td style="width:240px;">@item.Description</td>      
+                                            <td style="width:240px;">@item.ApplicationName</td>      
+                                        </tr>
+                                        @if (ModuleExpand == true)
+                                        {
+                                            if (DisplaySubModules.Count() > 0)
+                                            {
+                                                foreach (var submodule in DisplaySubModules)
+                                                {
+                                                    if (submodule.ModuleId == item.ModuleId)
+                                                    {
+
+                                                        <tr>
+                                                            <td style="width:40px;"><input type="checkbox" class="checkbox-round" value="@submodule.SubModuleId" @onchange="eventArgs => { ModulesSelectedAsync(item.ModuleId, eventArgs.Value); }"/></td>
+                                                            <td style="width:300px; padding-left: 20px;">     
+                                                                @submodule.SubModuleName
+                                                            </td>
+                                                            <td style="width:180px;">@submodule.Abbreviation</td>
+                                                            <td style="width:240px;"></td>      
+                                                            <td style="width:240px;"></td>      
+                                                        </tr>
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                </table> 
+                            }
+                            else
+                            {
+                               <table> 
+                                     <tr>
+                                        <th><input type="checkbox" class="checkbox-round" /></th>
+                                        <th>Module Name</th>
+                                        <th>Abbrevation</th>
+                                        <th>Description</th>
+                                        <th>Application Name</th>
+                                     </tr>
+                               </table> 
+                            }
+                        }
+                    </div>
+                    @if(DisplayModules.Count() > 0)
+                    {
+                        <div class="d-flex justify-content-center" style="width:100%;position:fixed;top:91%;left:10%;z-index:100;">
+                            <PagingComponent onFirstPageClicked="FirstButtonClicked" onLastPageClicked="LastButtonClicked" onPreviousPageClicked="PreviousButtonClicked" onNextPageClicked="NextButtonClicked" CurrentPage="@CurrentPage" TotalPages="@TotalPages"/>
+                        </div> 
+                    }
+                </CardLayout>
+            } 
+        }
+    </div>
+</div>
+
+@code {
+    [JSInvokable]
+    public void ReturnArrayAsync()
+    {
+       
+    }
+}

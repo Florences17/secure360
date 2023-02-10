@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Opteamix.AuthorizationFramework.BlazorApp</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/Login.css" rel="stylesheet" type="text/css" />
+    <link href="Opteamix.AuthorizationFramework.BlazorApp.styles.css" rel="stylesheet" />
+    <link href="css/Font.css" rel="stylesheet" />
+
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/solid.css" integrity="sha384-Tv5i09RULyHKMwX0E8wJUqSOaXlyu3SQxORObAI08iUwIalMmN5L6AvlPX2LMoSE" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/fontawesome.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="_content/Blazored.Toast/blazored-toast.min.css" rel="stylesheet" />
+
+    <link href="css/Modal.css" rel="stylesheet" />
+
+</head>
+
+<body style="height: 100vh;">
+    <div id="app" style="height: 100%;">
+        <div class="d-flex align-items-center justify-content-center" style="height: 100%; width: 100%; background-color: #E5E5E5;">
+            <img src="gif/loading.gif" width="150" height="150"/>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <script type="text/javascript">
+        window.imageselector = (image_picker_id) => {
+            $(image_picker_id).trigger('click');
+        }
+
+        window.uploadpreview = (object) => {
+            readURL(object.image_picker_id, object.image_preview_id, object.image_text_id);
+        }
+
+        window.loadfunctions = (object) => {
+            $(object.image_picker_id).change(function () {
+                
+            });
+            
+        }
+
+        window.excelexport = (url) => {
+            const anchorElement = document.createElement('a');
+            anchorElement.href = url;
+            anchorElement.click();
+            anchorElement.remove();
+        }
+
+        window.excelselector = (excel_picker_id) => {
+            $(excel_picker_id).trigger('click');
+        }
+
+        window.loadimagefromdb = (object) => {
+            $(object.image_picker_id).val(null);
+            $(object.image_text_id).css("display", "none");
+            $(object.image_preview_id).css("display", "block");
+        } 
+
+        window.clearpreview = (object) => {
+            $(object.image_picker_id).val(null);
+            $(object.image_preview_id).attr('src', "");
+            $(object.image_text_id).css("display", "block");
+            $(object.image_preview_id).css("display", "none");
+        }
+        
+        function readURL(input, image_preview_id, image_text_id) {
+            if ($(input)[0].files.length !== 0) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $(image_preview_id).attr('src', e.target.result);
+                }
+                reader.readAsDataURL($(input)[0].files[0]);
+                $(image_text_id).css("display", "none");
+                $(image_preview_id).css("display", "block");
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

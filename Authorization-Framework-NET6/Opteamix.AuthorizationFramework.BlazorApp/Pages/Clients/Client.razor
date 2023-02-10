@@ -1,0 +1,63 @@
+@page "/"
+@using Opteamix.AuthorizationFramework.BlazorApp.Models
+@using Opteamix.AuthorizationFramework.BlazorApp.Models.Clients
+
+<TopNavbar />
+<div class="row mt-5" style="margin-left: 240px; margin-right: 240px;">
+    <MenuItems />
+    <div class="col-8 item-container">
+        <CardLayout Width="1060px" Height="646px" ClassName="pt-2">
+            <div class="d-flex justify-content-between mx-5 py-3 align-items-center" style="height: 70px;">
+
+                <label style="font-size: 22px; color: #4E4E4E; font-family: 'Poppins', sans-serif; font-weight: 500; display: flex; margin-right: 20px">Client List</label>                       
+                <SearchLayout Width="400px" Height="40px" @bind-Input="SearchValue" onSearchButtonClicked="SearchButtonClicked" onSearchCleared="SearchCleared"/>
+                <div class="col-4 d-flex justify-content-between"> 
+                    <IconButton Width="170px" Height="36px" IconName="fa fa-plus" Text="Create new" onIconButtonClicked="(()=>IconButtonClick(Constants.AddClient, Constants.Add))"/>
+                    <IconButton Width="118px" Height="36px" IconName="fa fa-trash" Text="Delete" onIconButtonClicked="(()=>IconButtonClick(Constants.Client, Constants.Delete))"/>
+                </div>
+            </div>
+            <div class="d-flex justify-content-between mx-5" style="height:100px; padding-top: 2%;">
+                @if (client_state == LoadingContainerState.Loading)
+                {
+                    <img src="/gif/loading.gif" width="100px" height="100px" />
+                }
+                else if (client_state == LoadingContainerState.Loaded)
+                {
+                    if (DisplayClients.Count() > 0)
+                    {
+                        <table>
+                            <tr>
+                                <th style="width:40px;"><input type="checkbox" class="checkbox-round" /></th>
+                                <th style="width:400px;">Client Name</th>
+                                <th style="width:240px;">Short Name</th>
+                                <th style="width:300px;">Contact Person</th>
+                            </tr>
+                            @foreach (FetchClientModel item in DisplayClients)
+                            {
+                                <tr>
+                                    <td style="width:40px;"><input type="checkbox" class="checkbox-round" value="@item.ClientId" @onchange="eventArgs => { ClientSelected(item.ClientId, eventArgs.Value); }"/></td>
+                                    <td class="table-data-link" style="width:400px;" @onclick="(()=>GridItemSelected(item))">@item.ClientName</td>
+                                    <td style="width:240px;">@item.ShortName</td>
+                                    @if (string.IsNullOrEmpty(item.ContactPerson))
+                                    {
+                                        <td style="width:300px;"></td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width:300px;">@item.ContactPerson</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    }
+                }
+            </div>
+            @if(DisplayClients.Count()>0)
+            {
+                <div class="d-flex justify-content-center" style="width:100%;position:fixed;top:75%;left:10%;z-index:100;">
+                    <PagingComponent onFirstPageClicked="FirstButtonClicked" onLastPageClicked="LastButtonClicked" onPreviousPageClicked="PreviousButtonClicked" onNextPageClicked="NextButtonClicked" CurrentPage="@CurrentPage" TotalPages="@TotalPages"/>
+                </div>  
+            }  
+        </CardLayout>
+    </div>
+</div>

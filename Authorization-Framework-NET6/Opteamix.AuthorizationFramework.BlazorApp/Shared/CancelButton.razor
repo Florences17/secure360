@@ -1,0 +1,19 @@
+<link href="css/CancelButton.css" rel="stylesheet" type="text/css" />
+
+<button class="cancel-button" style="width: @Width; height: @Height;" @onclick=@CancelButtonClicked>Cancel</button>
+
+@code{
+    [Parameter]
+    public string Width {get; set;}
+
+    [Parameter]
+    public string Height {get; set;}
+
+    [Parameter]
+    public EventCallback onCancelButtonClicked { get; set; }
+
+    protected async Task CancelButtonClicked()
+    {
+        await onCancelButtonClicked.InvokeAsync();
+    }
+}

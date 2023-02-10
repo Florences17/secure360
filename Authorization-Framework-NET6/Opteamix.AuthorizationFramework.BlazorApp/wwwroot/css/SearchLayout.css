@@ -1,0 +1,22 @@
+.search-item-container{
+    box-shadow: inset -5px -5px 10px #FFFFFF, inset 5px 5px 10px #b3b3b3;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.search-item-textbox{
+    height: 100%;
+    width: 90%;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: #9C9C9C;
+}
+.search-item-textbox:focus{
+    outline: none;
+}
+.search-item-button{
+    color: #9C9C9C;
+    background-color: transparent;
+    border: none;
+}

@@ -1,0 +1,34 @@
+﻿<link href="css/CircularButton.css" rel="stylesheet" type="text/css" />
+<link href="css/InputFieldText.css" rel="stylesheet" type="text/css" />
+
+<div class="row d-flex align-items-center justify-content-center" style="width:420px;height:50px;background-color:transparent;text-align:center;">
+    <div class="d-flex align-items-center justify-content-center circular-button mx-2 p-0" style="width:40px; height:40px;" @onclick="FirstPageClicked">
+        <div class="d-flex align-items-center justify-content-center" style="width:32px;height:32px;border:3px solid #9C9C9C;border-radius:50%;">
+            <span><i class="fas fa-angle-double-left" style="color:#9C9C9C;"></i></span>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center circular-button mx-2 p-0" style="width:40px; height:40px;" @onclick="PreviousPageClicked">
+        <div class="d-flex align-items-center justify-content-center" style="width:32px;height:32px;border:3px solid #9C9C9C;border-radius:50%;">
+            <span><i class="fas fa-angle-left" style="color:#9C9C9C;"></i></span>
+        </div>
+    </div>
+    <div class="input-text-field-container d-flex align-items-center justify-content-center ms-2" style="width:60px;height:40px;">
+        <span style="font-weight:bold;font-size:18px;color:#095AED">@CurrentPage</span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center ms-1 p-0" style="width:30px;height:30px;">
+        <span style="font-weight:bold;font-size:16px;color:#9C9C9C">of</span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center me-1 p-0" style="width:30px;height:30px;">
+        <span style="font-weight:bolder;font-size:18px;color:#4E4E4E">@TotalPages</span>
+    </div>
+    <div class="d-flex align-items-center justify-content-center circular-button mx-2 p-0" style="width:40px; height:40px;" @onclick="NextPageClicked">
+        <div class="d-flex align-items-center justify-content-center" style="width:32px;height:32px;border:3px solid #9C9C9C;border-radius:50%;">
+            <span><i class="fas fa-angle-right" style="color:#9C9C9C;"></i></span>
+        </div>
+    </div>
+    <div class="d-flex align-items-center justify-content-center circular-button mx-2 p-0" style="width:40px; height:40px;" @onclick="LastPageClicked">
+        <div class="d-flex align-items-center justify-content-center" style="width:32px;height:32px;border:3px solid #9C9C9C;border-radius:50%;">
+            <span><i class="fas fa-angle-double-right" style="color:#9C9C9C;"></i></span>
+        </div>
+    </div>
+</div>

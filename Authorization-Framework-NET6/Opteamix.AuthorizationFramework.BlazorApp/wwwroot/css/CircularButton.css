@@ -1,0 +1,17 @@
+.circular-button{
+    border-radius: 50%;
+    color: #095AED;
+    background-color: #E5E5E5;
+    border: none;
+    box-shadow: -2px -2px 5px #FFFFFF, 2px 2px 5px 2px #d3d3d3;
+    font-size: 20px;
+    cursor: pointer;
+}
+.circular-button-item {
+    font-size: 20px;
+    border: 2px solid #095AED;
+    color: #095AED;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0.15em 0.25em;
+}

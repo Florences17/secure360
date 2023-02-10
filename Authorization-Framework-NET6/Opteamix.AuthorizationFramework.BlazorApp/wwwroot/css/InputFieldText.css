@@ -1,0 +1,24 @@
+.input-text-field-container{
+    box-shadow: inset -5px -5px 10px #FFFFFF, inset 5px 5px 10px #b3b3b3;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.input-text-field-name{
+    font-size: 12px;
+    font-family: 'Poppins', sans-serif;
+    color: #9C9C9C;
+}
+.input-text-field-textbox{
+    height: 50%;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: #4E4E4E;
+    margin-top: -5px;
+    padding: 0px;
+}
+.input-text-field-textbox:focus{
+    outline: none;
+}
